@@ -1,0 +1,10 @@
+$ llmw query Human-in-the-loop 在 agent workflow 中有什么作用？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Human-in-the-loop 用于在高风险、低置信度或需要业务判断的节点加入人工审批，让 agent workflow 不必完全自动化执行。相关证据见 Human In The Loop、Durable Agent Execution 和 Agent State Graph。
+
+Evidence pages:
+- Human in the Loop (wiki/concepts/human-in-the-loop.md)
+- Agent Guardrails (wiki/concepts/agent-guardrails.md)
+- Multi-Agent Orchestration (wiki/concepts/Multi-Agent Orchestration.md)
+
+Model: mock-qa-model
+# exit 0

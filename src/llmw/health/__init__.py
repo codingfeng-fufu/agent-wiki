@@ -1,0 +1,1 @@
+"""Wiki health checks."""

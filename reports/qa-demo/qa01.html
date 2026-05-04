@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px;
+    background: #e7e9ee;
+    font-family: "Inter", "Noto Sans CJK SC", "Noto Sans", Arial, sans-serif;
+  }
+  .terminal {
+    width: 1120px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    background: #0b1020;
+  }
+  .bar {
+    height: 42px;
+    background: #171d2f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: #b7c0d6;
+    font-size: 14px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+  .title { margin-left: 12px; }
+  pre {
+    margin: 0;
+    padding: 22px 24px 28px;
+    color: #d8e1ff;
+    background: #0b1020;
+    font: 15px/1.48 "DejaVu Sans Mono", "Noto Sans CJK SC", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+  <section class="terminal">
+    <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">QA01 用户终端 QA</span></div>
+    <pre>$ llmw query Agent guardrails 主要解决什么问题？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Agent guardrails 用来在输入、输出和工具调用周围建立验证边界，减少不安全输入、格式错误输出和工具滥用风险。相关证据见 Agent Guardrails、Input Guardrails 和 Output Guardrails。
+
+Evidence pages:
+- Agent Guardrails (wiki/concepts/agent-guardrails.md)
+- 01 openai agents guardrails (wiki/sources/01-openai-agents-guardrails-87ce73bd.md)
+- Input Guardrails (wiki/concepts/input-guardrails.md)
+
+Model: mock-qa-model
+# exit 0
+</pre>
+  </section>
+</body>
+</html>

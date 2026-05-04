@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px;
+    background: #e7e9ee;
+    font-family: "Inter", "Noto Sans CJK SC", "Noto Sans", Arial, sans-serif;
+  }
+  .terminal {
+    width: 1120px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    background: #0b1020;
+  }
+  .bar {
+    height: 42px;
+    background: #171d2f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: #b7c0d6;
+    font-size: 14px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+  .title { margin-left: 12px; }
+  pre {
+    margin: 0;
+    padding: 22px 24px 28px;
+    color: #d8e1ff;
+    background: #0b1020;
+    font: 15px/1.48 "DejaVu Sans Mono", "Noto Sans CJK SC", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+  <section class="terminal">
+    <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">QA03 用户终端 QA</span></div>
+    <pre>$ llmw query Long-running agents 如何在中断后恢复？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+长运行 agent 需要持久化执行状态、检查点和可重放记录；中断后可以从最近状态恢复，而不是从头重新读取和推理。相关证据见 Durable Agent Execution、Agent Checkpointing 和 Replayable Agent Runs。
+
+Evidence pages:
+- Durable Agent Execution (wiki/concepts/durable-agent-execution.md)
+- Agent Checkpointing (wiki/concepts/agent-checkpointing.md)
+- Agent Evaluation (wiki/concepts/agent-evaluation.md)
+
+Model: mock-qa-model
+# exit 0
+</pre>
+  </section>
+</body>
+</html>

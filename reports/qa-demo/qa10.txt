@@ -1,0 +1,10 @@
+$ llmw query Agent evaluation 和 regression testing 如何保持行为稳定？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Agent evaluation 用来衡量行为是否安全、有用和可复现；regression testing 则把关键行为固定成测试，防止模型、prompt 或工具变更造成退化。相关证据见 Agent Evaluation、Agent Regression Testing 和 Agent Observability。
+
+Evidence pages:
+- Agent Regression Testing (wiki/concepts/agent-regression-testing.md)
+- Agent Evaluation (wiki/concepts/agent-evaluation.md)
+- Agent Tracing (wiki/concepts/agent-tracing.md)
+
+Model: mock-qa-model
+# exit 0

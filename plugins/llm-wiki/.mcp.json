@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "llm-wiki": {
+      "command": "./.venv/bin/llmw",
+      "args": [
+        "mcp",
+        "--root",
+        "."
+      ],
+      "default_tools_approval_mode": "approve"
+    }
+  }
+}

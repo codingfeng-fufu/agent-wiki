@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px;
+    background: #e7e9ee;
+    font-family: "Inter", "Noto Sans CJK SC", "Noto Sans", Arial, sans-serif;
+  }
+  .terminal {
+    width: 1120px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    background: #0b1020;
+  }
+  .bar {
+    height: 42px;
+    background: #171d2f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: #b7c0d6;
+    font-size: 14px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+  .title { margin-left: 12px; }
+  pre {
+    margin: 0;
+    padding: 22px 24px 28px;
+    color: #d8e1ff;
+    background: #0b1020;
+    font: 15px/1.48 "DejaVu Sans Mono", "Noto Sans CJK SC", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+  <section class="terminal">
+    <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">QA02 用户终端 QA</span></div>
+    <pre>$ llmw query Agent tracing 和 tool-call logs 对调试有什么帮助？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Tracing 让开发者看到 agent 的步骤、工具调用和中间状态；tool-call logs 记录具体工具请求与结果，方便复现、审计和定位失败。相关证据见 Agent Tracing、Tool Call Logs 和 Agent Observability。
+
+Evidence pages:
+- Tool Call Logs (wiki/concepts/tool-call-logs.md)
+- Agent Tracing (wiki/concepts/agent-tracing.md)
+- 02 openai agents tracing (wiki/sources/02-openai-agents-tracing-ea05beb6.md)
+
+Model: mock-qa-model
+# exit 0
+</pre>
+  </section>
+</body>
+</html>

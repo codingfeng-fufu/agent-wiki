@@ -1,0 +1,10 @@
+$ llmw query MCP tools 和 A2A 协议的边界是什么？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+MCP 更偏向把工具、资源和 prompts 暴露给模型或 agent runtime；A2A 更偏向 agent 与 agent 之间跨边界交换任务、状态和消息。相关证据见 Model Context Protocol、MCP Tools、Agent2Agent Protocol 和 MCP vs A2A。
+
+Evidence pages:
+- MCP vs A2A (wiki/concepts/mcp-vs-a2a.md)
+- MCP Tools (wiki/concepts/mcp-tools.md)
+- 03 mcp tools resources prompts (wiki/sources/03-mcp-tools-resources-prompts-420d2910.md)
+
+Model: mock-qa-model
+# exit 0

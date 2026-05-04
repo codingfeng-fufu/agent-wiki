@@ -1,0 +1,41 @@
+{
+  "default_provider": "qwen_plus",
+  "providers": {
+    "qwen_plus": {
+      "type": "openai_compatible",
+      "vendor": "alibaba_cloud_model_studio",
+      "model": "qwen-plus",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "timeout_seconds": 120,
+      "max_retries": 2,
+      "generation_defaults": {
+        "temperature": 0.2,
+        "top_p": 0.8,
+        "max_tokens": 4096
+      },
+      "usage": {
+        "ingest": {
+          "system_prompt_file": "system/prompts/ingest.md",
+          "temperature": 0.2,
+          "max_tokens": 4096
+        },
+        "query": {
+          "system_prompt_file": "system/prompts/query.md",
+          "temperature": 0.1,
+          "max_tokens": 4096
+        },
+        "health": {
+          "system_prompt_file": "system/prompts/health.md",
+          "temperature": 0.0,
+          "max_tokens": 2048
+        },
+        "agent": {
+          "system_prompt_file": "system/prompts/agent.md",
+          "temperature": 0.0,
+          "max_tokens": 512
+        }
+      }
+    }
+  }
+}

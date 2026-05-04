@@ -1,0 +1,10 @@
+$ llmw query Long-running agents 如何在中断后恢复？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+长运行 agent 需要持久化执行状态、检查点和可重放记录；中断后可以从最近状态恢复，而不是从头重新读取和推理。相关证据见 Durable Agent Execution、Agent Checkpointing 和 Replayable Agent Runs。
+
+Evidence pages:
+- Durable Agent Execution (wiki/concepts/durable-agent-execution.md)
+- Agent Checkpointing (wiki/concepts/agent-checkpointing.md)
+- Agent Evaluation (wiki/concepts/agent-evaluation.md)
+
+Model: mock-qa-model
+# exit 0

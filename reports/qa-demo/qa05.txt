@@ -1,0 +1,10 @@
+$ llmw query 如何降低 tool-using agents 的 prompt injection 风险？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+要降低 prompt injection 风险，应限制工具权限、隔离不可信输入、验证工具参数和输出，并保持最小权限原则。相关证据见 Prompt Injection、Tool Safety、Least Privilege 和 Agent Security。
+
+Evidence pages:
+- Prompt Injection (wiki/concepts/prompt-injection.md)
+- 03 mcp tools resources prompts (wiki/sources/03-mcp-tools-resources-prompts-420d2910.md)
+- MCP Prompts (wiki/concepts/mcp-prompts.md)
+
+Model: mock-qa-model
+# exit 0

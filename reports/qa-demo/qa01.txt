@@ -1,0 +1,10 @@
+$ llmw query Agent guardrails 主要解决什么问题？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Agent guardrails 用来在输入、输出和工具调用周围建立验证边界，减少不安全输入、格式错误输出和工具滥用风险。相关证据见 Agent Guardrails、Input Guardrails 和 Output Guardrails。
+
+Evidence pages:
+- Agent Guardrails (wiki/concepts/agent-guardrails.md)
+- 01 openai agents guardrails (wiki/sources/01-openai-agents-guardrails-87ce73bd.md)
+- Input Guardrails (wiki/concepts/input-guardrails.md)
+
+Model: mock-qa-model
+# exit 0

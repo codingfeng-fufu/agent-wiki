@@ -1,0 +1,12 @@
+{
+  "project_name": "LLM Wiki",
+  "qmd_collection": "llmwiki",
+  "obsidian_links": true,
+  "source_extensions": [
+    ".md",
+    ".markdown",
+    ".txt",
+    ".text",
+    ".pdf"
+  ]
+}

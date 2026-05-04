@@ -1,0 +1,36 @@
+{
+  "name": "llm-wiki",
+  "version": "0.1.0",
+  "description": "Agent-native local Markdown wiki tooling with MCP access to context, search, plans, and safe apply.",
+  "author": {
+    "name": "LLM Wiki Maintainers"
+  },
+  "homepage": "README.md",
+  "repository": "local",
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "wiki",
+    "mcp",
+    "retrieval",
+    "markdown"
+  ],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "LLM Wiki",
+    "shortDescription": "Expose a local source-backed Markdown wiki to agents.",
+    "longDescription": "LLM Wiki turns raw sources into a maintained Markdown knowledge graph and exposes context, search, query, maintenance, benchmark, plan, and safe apply tools through MCP.",
+    "developerName": "LLM Wiki Maintainers",
+    "category": "Productivity",
+    "capabilities": [
+      "MCP",
+      "Search",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use LLM Wiki MCP tools to inspect this workspace and answer with source-backed wiki evidence.",
+      "Search the maintained wiki for the relevant concepts, then summarize the answer with page paths.",
+      "Run llmw_context, llmw_next, and llmw_health_check before proposing maintenance work."
+    ]
+  }
+}

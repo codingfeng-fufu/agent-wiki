@@ -1,0 +1,20 @@
+{
+  "default_provider": "mock",
+  "providers": {
+    "mock": {
+      "type": "openai_compatible",
+      "model": "mock-qa-model",
+      "base_url": "http://127.0.0.1:8776/v1",
+      "api_key_env": "MOCK_LLM_API_KEY",
+      "timeout_seconds": 10,
+      "max_retries": 0,
+      "usage": {
+        "query": {
+          "system_prompt_file": "system/prompts/query.md",
+          "temperature": 0.0,
+          "max_tokens": 512
+        }
+      }
+    }
+  }
+}

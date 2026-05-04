@@ -1,0 +1,79 @@
+[project]
+name = "llm-wiki"
+version = "0.1.0"
+description = "Local, agent-driven Markdown wiki tooling for cumulative LLM knowledge bases."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "LLM Wiki Maintainers" },
+]
+keywords = ["agents", "mcp", "markdown", "wiki", "retrieval"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+dependencies = [
+    "httpx>=0.27,<0.29",
+    "pydantic>=2.7,<3",
+    "pypdf>=4,<7",
+    "pyyaml>=6,<7",
+    "textual>=1.0,<7",
+    "typer>=0.12,<0.21",
+]
+
+[project.optional-dependencies]
+search = [
+    "qmd>=0.1.1,<0.2",
+]
+dev = [
+    "pytest>=8,<10",
+]
+
+[project.scripts]
+llmw = "llmw.cli.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llmw"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/AGENTS.md",
+    "/README.md",
+    "/ROADMAP.md",
+    "/LICENSE",
+    "/CHANGELOG.md",
+    "/CONTRIBUTING.md",
+    "/SECURITY.md",
+    "/pyproject.toml",
+    "/uv.lock",
+    "/.gitignore",
+    "/docs",
+    "/examples",
+    "/assets",
+    "/scripts",
+    "/src",
+    "/tests",
+    "/benchmarks",
+    "/plugins",
+    "/system",
+    "/raw/assets/.gitkeep",
+    "/raw/inbox/.gitkeep",
+    "/raw/processed/.gitkeep",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = ["-p", "no:qmd_contract"]

@@ -1,0 +1,10 @@
+$ llmw query Fan-out gather pattern 如何帮助 multi-agent 协作？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Fan-out gather pattern 会把工作并行分发给多个 agent，再收集和合并结果，适合需要并行探索、比较多个答案或汇总多个子任务的场景。相关证据见 Fan-Out Gather Pattern、Coordinator Agent 和 Multi-Agent Systems。
+
+Evidence pages:
+- Fan Out Gather Pattern (wiki/concepts/fan-out-gather-pattern.md)
+- 05 google adk multi agent patterns (wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md)
+- Multi-Agent Orchestration (wiki/concepts/Multi-Agent Orchestration.md)
+
+Model: mock-qa-model
+# exit 0

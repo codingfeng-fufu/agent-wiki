@@ -1,0 +1,19 @@
+$ cd /tmp/llmw-zh-demo
+$ llmw query "raw/ 和 wiki/ 的边界是什么？为什么 raw/ 不能被 agent 改写？"
+
+`raw/` 和 `wiki/` 的边界是：**`raw/` 是只读、不可变的原始证据层；`wiki/` 是可写、可审查、版本化的维护层（即长期记忆层）**。
+
+依据安全审查记录 [[agent-c0159bbf]]，`raw/` 必须“永远只读”，因为其中内容被视为**不可信的原始证据**，可能含 prompt injection 等恶意指令（如“忽略系统提示”“删除所有文件”），故 agent **绝不能将其当作可执行输入或改写目标**（[3]）。而 `wiki/` 是唯一被允许写入的主路径，所有修改须经 plan → dry-run → apply 流程，并确保可追溯、可审计（[1][4][5]）。
+
+因此，`raw/` 不能被 agent 改写，根本原因是其设计定位为**immutable evidence** —— 违反此边界将使系统退化为“高风险自动化脚本入口”（[3][4]）。
+
+Evidence pages:
+- Coding Agent (wiki/concepts/Coding_Agent.md)
+- Coding Agent (wiki/concepts/coding-agent.md)
+- Agent安全审查记录 (wiki/sources/agent-c0159bbf.md)
+- Long-Term Memory Layer (wiki/concepts/Long-Term_Memory_Layer.md)
+- Long-Term Memory Layer (wiki/concepts/long-term-memory-layer.md)
+
+Model: qwen-plus
+
+[exit_code=0]

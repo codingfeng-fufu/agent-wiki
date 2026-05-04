@@ -1,0 +1,10 @@
+$ llmw query Planner-executor pattern 适合什么场景？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Planner-executor pattern 适合需要先拆解任务、再由执行步骤逐项完成的 agent workflow，尤其适合复杂、多步骤或需要检查执行结果的任务。相关证据见 Planner Executor Pattern、Coordinator Agent 和 Reviewer Agent。
+
+Evidence pages:
+- Planner Executor Pattern (wiki/concepts/planner-executor-pattern.md)
+- Fan Out Gather Pattern (wiki/concepts/fan-out-gather-pattern.md)
+- 05 google adk multi agent patterns (wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md)
+
+Model: mock-qa-model
+# exit 0

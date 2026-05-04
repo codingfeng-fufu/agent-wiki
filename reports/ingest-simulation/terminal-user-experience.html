@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px;
+    background: #e7e9ee;
+    font-family: "Inter", "Noto Sans CJK SC", "Noto Sans", Arial, sans-serif;
+  }
+  .terminal {
+    width: 1180px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    background: #0b1020;
+  }
+  .bar {
+    height: 42px;
+    background: #171d2f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: #b7c0d6;
+    font-size: 14px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+  .title { margin-left: 12px; }
+  pre {
+    margin: 0;
+    padding: 22px 24px 28px;
+    color: #d8e1ff;
+    background: #0b1020;
+    font: 15px/1.48 "DejaVu Sans Mono", "Noto Sans CJK SC", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+  <section class="terminal">
+    <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">LLM Wiki 用户终端模拟</span></div>
+    <pre>$ llmw init --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace
+Initialized LLM Wiki at /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace
+# exit 0
+
+# 配置 mock provider: system/providers/mock.json
+
+# 准备中文 raw source: raw/inbox/zh-long-memory.md
+
+$ llmw source add raw/inbox/zh-long-memory.md --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+{
+  &quot;ok&quot;: true,
+  &quot;source&quot;: {
+    &quot;source_id&quot;: &quot;zh-long-memory-bbeee92f&quot;,
+    &quot;title&quot;: &quot;zh long memory&quot;,
+    &quot;path&quot;: &quot;raw/processed/zh-long-memory-bbeee92f.md&quot;,
+    &quot;original_path&quot;: &quot;raw/inbox/zh-long-memory.md&quot;,
+    &quot;media_type&quot;: &quot;text/markdown&quot;,
+    &quot;sha256&quot;: &quot;bbeee92fc0ee756ca8fa8b9ed8a1aa1d489b3ea70523d2f6e2f6ef55fd39d9fd&quot;,
+    &quot;size_bytes&quot;: 94,
+    &quot;status&quot;: &quot;registered&quot;,
+    &quot;created_at&quot;: &quot;2026-05-04T06:57:32Z&quot;,
+    &quot;updated_at&quot;: &quot;2026-05-04T06:57:32Z&quot;,
+    &quot;summary&quot;: &quot;&quot;,
+    &quot;pages&quot;: [],
+    &quot;error&quot;: null
+  }
+}
+# exit 0
+
+# normalize source_id: zh-long-memory-bbeee92f -&gt; zh-long-memory-1234
+
+$ llmw index rebuild --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+{
+  &quot;ok&quot;: true,
+  &quot;path&quot;: &quot;wiki/index.md&quot;
+}
+# exit 0
+
+# 预置已有概念页: wiki/concepts/coding-agent.md
+
+$ llmw ingest run zh-long-memory-1234 --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --provider-config /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace/system/providers/mock.json --json
+{
+  &quot;ok&quot;: true,
+  &quot;source_id&quot;: &quot;zh-long-memory-1234&quot;,
+  &quot;pages&quot;: [
+    &quot;wiki/sources/zh-long-memory-1234.md&quot;,
+    &quot;wiki/concepts/coding-agent.md&quot;,
+    &quot;wiki/concepts/长期记忆层.md&quot;
+  ],
+  &quot;log_note&quot;: &quot;模拟 ingest 完成。&quot;,
+  &quot;health_errors&quot;: 0,
+  &quot;health_warnings&quot;: 0,
+  &quot;dry_run&quot;: false
+}
+# exit 0
+
+$ llmw health check --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+{
+  &quot;ok&quot;: true,
+  &quot;issues&quot;: [
+    {
+      &quot;severity&quot;: &quot;info&quot;,
+      &quot;code&quot;: &quot;orphan-page&quot;,
+      &quot;message&quot;: &quot;No inbound wiki links found.&quot;,
+      &quot;path&quot;: &quot;wiki/sources/zh-long-memory-1234.md&quot;
+    }
+  ]
+}
+# exit 0
+
+$ llmw search 这个项目为什么需要一个长期记忆层？ --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+{
+  &quot;ok&quot;: true,
+  &quot;warning&quot;: null,
+  &quot;strategy&quot;: {
+    &quot;mode&quot;: &quot;fast&quot;,
+    &quot;deep_recommended&quot;: true,
+    &quot;reason&quot;: &quot;Fast rg/Python search is the default. Use `--deep` or `search-server --deep` when recall matters across multiple concepts.&quot;,
+    &quot;fast_command&quot;: &quot;llmw search \&quot;这个项目为什么需要一个长期记忆层？\&quot; --json&quot;,
+    &quot;deep_command&quot;: &quot;llmw search \&quot;这个项目为什么需要一个长期记忆层？\&quot; --deep --json&quot;,
+    &quot;server_command&quot;: &quot;llmw search-server --deep&quot;
+  },
+  &quot;results&quot;: [
+    {
+      &quot;path&quot;: &quot;wiki/concepts/长期记忆层.md&quot;,
+      &quot;title&quot;: &quot;长期记忆层&quot;,
+      &quot;score&quot;: 21.870727367455906,
+      &quot;snippet&quot;: &quot;长期记忆层帮助 coding agent 减少重复读取项目上下文，并通过 [[Coding Agent]] 形成项目记忆。&quot;,
+      &quot;provider&quot;: &quot;python-scan&quot;
+    },
+    {
+      &quot;path&quot;: &quot;wiki/sources/zh-long-memory-1234.md&quot;,
+      &quot;title&quot;: &quot;中文长期记忆资料&quot;,
+      &quot;score&quot;: 11.975930579144109,
+      &quot;snippet&quot;: &quot;关联 [[Coding Agent]] 和 [[长期记忆层]]。&quot;,
+      &quot;provider&quot;: &quot;python-scan&quot;
+    },
+    {
+      &quot;path&quot;: &quot;wiki/concepts/coding-agent.md&quot;,
+      &quot;title&quot;: &quot;Coding Agent&quot;,
+      &quot;score&quot;: 8.364116478835212,
+      &quot;snippet&quot;: &quot;Coding agent 会从长期记忆层复用项目上下文。&quot;,
+      &quot;provider&quot;: &quot;python-scan&quot;
+    }
+  ]
+}
+# exit 0
+
+# mock LLM calls: 2
+# duplicate page exists: False
+# Chinese concept exists: True
+</pre>
+  </section>
+</body>
+</html>

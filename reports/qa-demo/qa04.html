@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px;
+    background: #e7e9ee;
+    font-family: "Inter", "Noto Sans CJK SC", "Noto Sans", Arial, sans-serif;
+  }
+  .terminal {
+    width: 1120px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
+    background: #0b1020;
+  }
+  .bar {
+    height: 42px;
+    background: #171d2f;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    color: #b7c0d6;
+    font-size: 14px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .red { background: #ff5f57; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #28c840; }
+  .title { margin-left: 12px; }
+  pre {
+    margin: 0;
+    padding: 22px 24px 28px;
+    color: #d8e1ff;
+    background: #0b1020;
+    font: 15px/1.48 "DejaVu Sans Mono", "Noto Sans CJK SC", monospace;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+</style>
+</head>
+<body>
+  <section class="terminal">
+    <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">QA04 用户终端 QA</span></div>
+    <pre>$ llmw query MCP tools 和 A2A 协议的边界是什么？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+MCP 更偏向把工具、资源和 prompts 暴露给模型或 agent runtime；A2A 更偏向 agent 与 agent 之间跨边界交换任务、状态和消息。相关证据见 Model Context Protocol、MCP Tools、Agent2Agent Protocol 和 MCP vs A2A。
+
+Evidence pages:
+- MCP vs A2A (wiki/concepts/mcp-vs-a2a.md)
+- MCP Tools (wiki/concepts/mcp-tools.md)
+- 03 mcp tools resources prompts (wiki/sources/03-mcp-tools-resources-prompts-420d2910.md)
+
+Model: mock-qa-model
+# exit 0
+</pre>
+  </section>
+</body>
+</html>

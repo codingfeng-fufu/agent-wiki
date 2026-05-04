@@ -1,0 +1,22 @@
+$ cd /tmp/llmw-zh-demo
+$ llmw query "long-term memory layer 为什么能减少 coding agent 重复读取项目上下文？"
+
+`long-term memory layer` 能减少 coding agent 重复读取项目上下文，是因为它提供了一个**结构化、可追溯、人类可审查的知识层（`wiki/`）**，使 coding agent 在执行任务前**优先搜索已维护的 wiki 内容**，而非每次重新从原始证据（`raw/`）中检索和推断上下文 [[Coding Agent#3]], [[Long-Term Memory Layer#1]]。
+
+具体机制包括：
+- **避免每会话重发现**：若无该层，coding agent 需在每次会话中重新识别项目目标、历史决策、安全约束等，导致延迟与不一致 [[Coding Agent#4]]；
+- **明确检索优先级**：安全规范要求 agent “prioritizes search over `wiki/` content before relying on raw fragments” [[Coding Agent#3]]；
+- **知识沉淀与复用**：`wiki/` 中的分析页（`wiki/analyses/`）和概念页（如 `wiki/concepts/Long-Term_Memory_Layer.md`）将分散的原始信息提炼为稳定、可复用的结论，且所有结论须 source-traceable [[Long-Term Memory Layer#2]]。
+
+因此，该层通过**将动态上下文固化为静态、可索引的知识资产**，直接消除了重复读取与重复推理的必要性。
+
+Evidence pages:
+- Long-Term Memory Layer (wiki/concepts/Long-Term_Memory_Layer.md)
+- Long-Term Memory Layer (wiki/concepts/long-term-memory-layer.md)
+- Coding Agent (wiki/concepts/Coding_Agent.md)
+- Coding Agent (wiki/concepts/coding-agent.md)
+- Agent安全审查记录 (wiki/sources/agent-c0159bbf.md)
+
+Model: qwen-plus
+
+[exit_code=0]

@@ -1,0 +1,10 @@
+$ llmw query Agent tracing 和 tool-call logs 对调试有什么帮助？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Tracing 让开发者看到 agent 的步骤、工具调用和中间状态；tool-call logs 记录具体工具请求与结果，方便复现、审计和定位失败。相关证据见 Agent Tracing、Tool Call Logs 和 Agent Observability。
+
+Evidence pages:
+- Tool Call Logs (wiki/concepts/tool-call-logs.md)
+- Agent Tracing (wiki/concepts/agent-tracing.md)
+- 02 openai agents tracing (wiki/sources/02-openai-agents-tracing-ea05beb6.md)
+
+Model: mock-qa-model
+# exit 0

@@ -1,0 +1,15 @@
+$ cd /tmp/llmw-zh-demo
+$ llmw query "Agent安全审查记录 中提到的 prompt injection 和写入权限风险是什么？"
+
+根据《Agent安全审查记录》（wiki/sources/agent-c0159bbf.md）：
+
+- **Prompt injection 风险**：指原始资料（如 `raw/` 中的内容）可能包含恶意指令（例如“忽略系统提示”“删除所有文件”“泄露 API key”），若 agent 将其误当作可执行指令而非只读证据，可能导致越权操作或信息泄露。审查强调必须将 `raw/` 内容严格视为**只读证据**，不可执行（[1]）。
+
+- **写入权限风险**：指工具若暴露任意 shell 执行或任意文件写入能力，agent 可能因模型错误、prompt injection 或上下文混淆而修改非目标文件，造成意外破坏或安全漏洞。控制要求写入仅限 `wiki/` 或明确允许的目录，且须经 plan → dry-run → apply 三步流程（[1]）。
+
+Evidence pages:
+- Agent安全审查记录 (wiki/sources/agent-c0159bbf.md)
+
+Model: qwen-plus
+
+[exit_code=0]

@@ -1,0 +1,10 @@
+$ llmw query 为什么不要把 sensitive data 放进 traces 或 logs？ --root . --provider-config reports/qa-demo/mock-provider.json --limit 3 --max-page-chars 1600
+Traces 和 logs 常用于调试、共享和长期保存；如果写入 secrets 或私有信息，会扩大暴露面并增加审计风险。相关证据见 Sensitive Data Exposure、Agent Tracing 和 Tool Call Logs。
+
+Evidence pages:
+- Sensitive Data Exposure (wiki/concepts/sensitive-data-exposure.md)
+- Tool Call Logs (wiki/concepts/tool-call-logs.md)
+- Agent Tracing (wiki/concepts/agent-tracing.md)
+
+Model: mock-qa-model
+# exit 0

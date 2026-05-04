@@ -1,0 +1,2451 @@
+$ ./scripts/release_check.sh
+
+== Tooling ==
+llmw 0.1.0
+Python 3.11.5
+
+== Tests ==
+........................................................................ [ 53%]
+..............................................................           [100%]
+134 passed in 41.16s
+
+== Offline Health ==
+No health issues found.
+
+== CLI Smoke ==
+
+== Search Daemon Smoke ==
+
+== Doctor Smoke ==
+
+== Release Command Smoke ==
+
+== Search Benchmark ==
+Provider: python
+Queries: 102
+Top-k: 5
+Content only: True
+Precision@5: 0.2157
+Precision ceiling@5: 0.2353
+Recall@5: 0.9493
+F1@5: 0.3423
+HitRate@5: 0.9706
+MRR@5: 0.8977
+By category:
+- analysis-paraphrase: n=2 F1@5=0.3333 Recall@5=1.0000
+- analysis-title: n=2 F1@5=0.3333 Recall@5=1.0000
+- concept-paraphrase: n=37 F1@5=0.3063 Recall@5=0.9189
+- concept-title: n=37 F1@5=0.3333 Recall@5=1.0000
+- cross-cutting: n=8 F1@5=0.5729 Recall@5=0.7292
+- source-paraphrase: n=8 F1@5=0.3333 Recall@5=1.0000
+- source-title: n=8 F1@5=0.3333 Recall@5=1.0000
+
+== Deep Search Benchmark ==
+Skipped because RUN_DEEP_SEARCH_BENCHMARK=0. Set RUN_DEEP_SEARCH_BENCHMARK=1 to run qmd/llmw gates.
+
+== LLM Smoke ==
+Provider: qwen_plus
+Model: qwen-plus
+Response: OK
+
+== Done ==
+Release checks passed.
+# exit 0
+
+$ ./.venv/bin/llmw health check --root . --json
+{
+  "ok": true,
+  "issues": []
+}
+# exit 0
+
+$ ./.venv/bin/llmw benchmark search --root . --provider python --top-k 5 --json
+{
+  "ok": true,
+  "benchmark": {
+    "provider": "python",
+    "content_only": true,
+    "summary": {
+      "queries": 102,
+      "top_k": 5,
+      "precision_at_k": 0.21568627450980357,
+      "precision_at_k_ceiling": 0.23529411764705857,
+      "recall_at_k": 0.9493464052287582,
+      "f1_at_k": 0.34232026143790806,
+      "hit_rate_at_k": 0.9705882352941176,
+      "mrr_at_k": 0.8977124183006537,
+      "by_category": {
+        "analysis-paraphrase": {
+          "queries": 2,
+          "precision_at_k": 0.2,
+          "recall_at_k": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 0.6
+        },
+        "analysis-title": {
+          "queries": 2,
+          "precision_at_k": 0.2,
+          "recall_at_k": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "concept-paraphrase": {
+          "queries": 37,
+          "precision_at_k": 0.18378378378378388,
+          "recall_at_k": 0.918918918918919,
+          "f1_at_k": 0.3063063063063064,
+          "hit_rate_at_k": 0.918918918918919,
+          "mrr_at_k": 0.8207207207207207
+        },
+        "concept-title": {
+          "queries": 37,
+          "precision_at_k": 0.2000000000000001,
+          "recall_at_k": 1.0,
+          "f1_at_k": 0.3333333333333334,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "cross-cutting": {
+          "queries": 8,
+          "precision_at_k": 0.475,
+          "recall_at_k": 0.7291666666666666,
+          "f1_at_k": 0.5729166666666667,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 0.9375
+        },
+        "source-paraphrase": {
+          "queries": 8,
+          "precision_at_k": 0.19999999999999998,
+          "recall_at_k": 1.0,
+          "f1_at_k": 0.3333333333333334,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 0.84375
+        },
+        "source-title": {
+          "queries": 8,
+          "precision_at_k": 0.19999999999999998,
+          "recall_at_k": 1.0,
+          "f1_at_k": 0.3333333333333334,
+          "hit_rate_at_k": 1.0,
+          "mrr_at_k": 0.84375
+        }
+      }
+    },
+    "worst_queries": [
+      {
+        "id": "concept-025-paraphrase",
+        "query": "compare Model Context Protocol with Agent2Agent interoperability",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/protocol-boundary.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "concept-026-paraphrase",
+        "query": "standard interface for tools resources and prompts",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/model-context-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "concept-034-paraphrase",
+        "query": "secrets or private information leaking through prompts traces or logs",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/sensitive-data-exposure.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/prompt-injection.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "cross-004",
+        "query": "which pattern sends work to several agents in parallel then combines answers",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/multi-agent-systems.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 0.3333333333333333,
+        "f1": 0.25,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-001-paraphrase",
+        "query": "map connecting guardrails tracing MCP durable execution multi agent and security sources",
+        "category": "analysis-paraphrase",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-001-title",
+        "query": "Agent Development Knowledge Map",
+        "category": "analysis-title",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/agent-interoperability.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-002-paraphrase",
+        "query": "cross cutting threads for safety reliability coordination and protocol design",
+        "category": "analysis-paraphrase",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.2
+      },
+      {
+        "id": "analysis-002-title",
+        "query": "initial agent development source map",
+        "category": "analysis-title",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-001-paraphrase",
+        "query": "execution environment for lifecycle routing state persistence and tool invocation",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-001-title",
+        "query": "Agent Runtime",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/agent-security.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      }
+    ],
+    "queries": [
+      {
+        "id": "concept-001-title",
+        "query": "Agent Runtime",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/agent-security.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-001-paraphrase",
+        "query": "execution environment for lifecycle routing state persistence and tool invocation",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-002-title",
+        "query": "AutoGen",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/AutoGen.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/AutoGen.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/agent-checkpointing.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-002-paraphrase",
+        "query": "Microsoft framework for message driven multi agent applications",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/AutoGen.md"
+        ],
+        "retrieved": [
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/Message Driven Agents.md",
+          "wiki/concepts/AutoGen.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      {
+        "id": "concept-003-title",
+        "query": "Message Driven Agents",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/Message Driven Agents.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Message Driven Agents.md",
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/AutoGen.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-003-paraphrase",
+        "query": "agents communicating through messages rather than shared memory",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/Message Driven Agents.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Message Driven Agents.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-004-title",
+        "query": "Multi-Agent Orchestration",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-004-paraphrase",
+        "query": "coordinate behavior and data flow among multiple autonomous agents",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-005-title",
+        "query": "Agent Checkpointing",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-checkpointing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-005-paraphrase",
+        "query": "persist agent state snapshots for recovery and auditing",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-checkpointing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-006-title",
+        "query": "Agent Evaluation",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-evaluation.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-006-paraphrase",
+        "query": "evaluate whether agent behavior is safe useful and reproducible",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-evaluation.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-observability.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/agent-regression-testing.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-007-title",
+        "query": "Agent Guardrails",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/agent-evaluation.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-007-paraphrase",
+        "query": "validation boundaries for unsafe inputs malformed outputs and tool misuse",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/concepts/tool-abuse.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      {
+        "id": "concept-008-title",
+        "query": "Agent Interoperability",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-interoperability.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-008-paraphrase",
+        "query": "independent agents exchange tasks state and messages across boundaries",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-interoperability.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/context-boundary.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-009-title",
+        "query": "Agent Observability",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-observability.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-observability.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-009-paraphrase",
+        "query": "inspect debug and evaluate agent behavior beyond final answers",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-observability.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-observability.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-010-title",
+        "query": "Agent Regression Testing",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-regression-testing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-010-paraphrase",
+        "query": "rerun representative tasks to detect behavior changes",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-regression-testing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/least-privilege.md",
+          "wiki/concepts/agent-observability.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-011-title",
+        "query": "Agent Security",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-security.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-011-paraphrase",
+        "query": "security controls for agents that can call tools files or networks",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-security.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/tool-safety.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-012-title",
+        "query": "Agent State Graph",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-012-paraphrase",
+        "query": "directed graph representation of agent states actions and transitions",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/Message Driven Agents.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/durable-agent-execution.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-013-title",
+        "query": "Agent Tracing",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent-tracing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-tracing.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-observability.md",
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/concepts/replayable-agent-runs.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-013-paraphrase",
+        "query": "structured trace records for model calls tool calls handoffs and guardrails",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent-tracing.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/agent-guardrails.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "concept-014-title",
+        "query": "Agent2Agent Protocol",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/agent2agent-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-014-paraphrase",
+        "query": "A2A protocol for secure discoverable communication between autonomous agents",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/agent2agent-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/model-context-protocol.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-015-title",
+        "query": "Coordinator Agent",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/coordinator-agent.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-015-paraphrase",
+        "query": "agent role that delegates subtasks aggregates results and enforces order",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/coordinator-agent.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-016-title",
+        "query": "Durable Agent Execution",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/durable-agent-execution.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/agent-checkpointing.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-016-paraphrase",
+        "query": "agent survives interruptions by persisting state and resuming from checkpoints",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/durable-agent-execution.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "concept-017-title",
+        "query": "Fan Out Gather Pattern",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/fan-out-gather-pattern.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/coordinator-agent.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-017-paraphrase",
+        "query": "parallel subtasks distributed then collected and synthesized",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/fan-out-gather-pattern.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-018-title",
+        "query": "Human in the Loop",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/human-in-the-loop.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/human-in-the-loop.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/reviewer-agent.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-018-paraphrase",
+        "query": "workflow pauses for human input review or approval",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/human-in-the-loop.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/human-in-the-loop.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/idempotent-tool-calls.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-019-title",
+        "query": "Idempotent Tool Calls",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/idempotent-tool-calls.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/agent-tool-interface.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-019-paraphrase",
+        "query": "safe retryable tool operations with same observable result",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/idempotent-tool-calls.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/tool-abuse.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-020-title",
+        "query": "Input Guardrails",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/input-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/agent-evaluation.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-020-paraphrase",
+        "query": "validate user input source content or workflow state before agent execution",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/input-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-guardrails.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-021-title",
+        "query": "Least Privilege",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/least-privilege.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/least-privilege.md",
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/concepts/agent-tool-interface.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-021-paraphrase",
+        "query": "grant an agent only the permissions needed for the current task",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/least-privilege.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/least-privilege.md",
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-022-title",
+        "query": "MCP Prompts",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/mcp-prompts.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-022-paraphrase",
+        "query": "reusable interaction templates and structured instructions in Model Context Protocol",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/mcp-prompts.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/context-boundary.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "concept-023-title",
+        "query": "MCP Resources",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/mcp-resources.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-resources.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-023-paraphrase",
+        "query": "contextual data exposed without necessarily performing actions",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/mcp-resources.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/concepts/agent-security.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-024-title",
+        "query": "MCP Tools",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-tools.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-024-paraphrase",
+        "query": "invocable actions exposed by Model Context Protocol",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.2
+      },
+      {
+        "id": "concept-025-title",
+        "query": "MCP vs A2A",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-025-paraphrase",
+        "query": "compare Model Context Protocol with Agent2Agent interoperability",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/protocol-boundary.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "concept-026-title",
+        "query": "Model Context Protocol",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/model-context-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-026-paraphrase",
+        "query": "standard interface for tools resources and prompts",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/model-context-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "concept-027-title",
+        "query": "Multi-Agent Systems",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/multi-agent-systems.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/fan-out-gather-pattern.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-027-paraphrase",
+        "query": "architectures where multiple autonomous agents collaborate on tasks",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/multi-agent-systems.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/agent-regression-testing.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-028-title",
+        "query": "Output Guardrails",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/output-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/agent-evaluation.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-028-paraphrase",
+        "query": "validate generated results before returning storing or using downstream",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/output-guardrails.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/concepts/idempotent-tool-calls.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-029-title",
+        "query": "Planner Executor Pattern",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/planner-executor-pattern.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/AutoGen.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-029-paraphrase",
+        "query": "planner creates actions and executor carries them out",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/planner-executor-pattern.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/context-boundary.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-030-title",
+        "query": "Prompt Injection",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/prompt-injection.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-030-paraphrase",
+        "query": "untrusted source text tries to override agent instructions",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/prompt-injection.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/agent-observability.md",
+          "wiki/concepts/agent-regression-testing.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-031-title",
+        "query": "Protocol Boundary",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/protocol-boundary.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-031-paraphrase",
+        "query": "interface layer enforcing authentication authorization schemas and trust assumptions",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/protocol-boundary.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/context-boundary.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-032-title",
+        "query": "Replayable Agent Runs",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/replayable-agent-runs.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-032-paraphrase",
+        "query": "preserve run context to inspect or reproduce agent behavior later",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/replayable-agent-runs.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/agent-observability.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-033-title",
+        "query": "Reviewer Agent",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/reviewer-agent.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/reviewer-agent.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-033-paraphrase",
+        "query": "agent that critiques validates correctness and triggers revision",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/reviewer-agent.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/reviewer-agent.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/agent-evaluation.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/coordinator-agent.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-034-title",
+        "query": "Sensitive Data Exposure",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/sensitive-data-exposure.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/mcp-resources.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-034-paraphrase",
+        "query": "secrets or private information leaking through prompts traces or logs",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/sensitive-data-exposure.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/prompt-injection.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "hits": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      {
+        "id": "concept-035-title",
+        "query": "Tool Abuse",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/tool-abuse.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/tool-call-logs.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-035-paraphrase",
+        "query": "model controlled actions misused or triggered unsafely",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/tool-abuse.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/context-boundary.md",
+          "wiki/concepts/agent-tool-interface.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-036-title",
+        "query": "Tool Call Logs",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/tool-call-logs.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/idempotent-tool-calls.md",
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/agent-tool-interface.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-036-paraphrase",
+        "query": "records of tool invocations results and failures during an agent run",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/tool-call-logs.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/idempotent-tool-calls.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-037-title",
+        "query": "Tool Safety",
+        "category": "concept-title",
+        "relevant": [
+          "wiki/concepts/tool-safety.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/tool-abuse.md",
+          "wiki/concepts/mcp-tools.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "concept-037-paraphrase",
+        "query": "constraints around actions that an agent can invoke",
+        "category": "concept-paraphrase",
+        "relevant": [
+          "wiki/concepts/tool-safety.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/agent-tool-interface.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/agent-interoperability.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-001-title",
+        "query": "OpenAI Agents SDK Guardrails source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/output-guardrails.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "source-001-paraphrase",
+        "query": "source card for OpenAI guardrails documentation",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md"
+        ],
+        "retrieved": [
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/output-guardrails.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-002-title",
+        "query": "OpenAI Agents SDK Tracing source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "retrieved": [
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/agent-regression-testing.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-002-paraphrase",
+        "query": "source card for OpenAI tracing observability documentation",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent-observability.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/agent-guardrails.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "source-003-title",
+        "query": "Model Context Protocol tools resources prompts source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md"
+        ],
+        "retrieved": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/prompt-injection.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-003-paraphrase",
+        "query": "source card for MCP concepts documentation",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md"
+        ],
+        "retrieved": [
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/mcp-resources.md",
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-004-title",
+        "query": "LangGraph Durable Execution source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md"
+        ],
+        "retrieved": [
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/Agent Runtime.md",
+          "wiki/concepts/replayable-agent-runs.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-004-paraphrase",
+        "query": "source card for LangGraph persistence durable execution and human in the loop",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md"
+        ],
+        "retrieved": [
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/human-in-the-loop.md",
+          "wiki/concepts/agent-state-graph.md",
+          "wiki/concepts/Agent Runtime.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-005-title",
+        "query": "Google ADK Multi-Agent Systems source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "retrieved": [
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-005-paraphrase",
+        "query": "source card for Google ADK multi agent architecture patterns",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "retrieved": [
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/planner-executor-pattern.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-006-title",
+        "query": "AutoGen Agent and Multi-Agent Applications source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md"
+        ],
+        "retrieved": [
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/AutoGen.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-006-paraphrase",
+        "query": "source card for Microsoft AutoGen multi agent application design",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md"
+        ],
+        "retrieved": [
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/AutoGen.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/multi-agent-systems.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-007-title",
+        "query": "Agent2Agent Protocol source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/mcp-vs-a2a.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.25
+      },
+      {
+        "id": "source-007-paraphrase",
+        "query": "source card for A2A interoperability protocol boundaries",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md"
+        ],
+        "retrieved": [
+          "wiki/sources/07-a2a-agent-interoperability-fc58e8a2.md",
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent-interoperability.md",
+          "wiki/concepts/agent2agent-protocol.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-008-title",
+        "query": "OWASP LLM Application Security source",
+        "category": "source-title",
+        "relevant": [
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "retrieved": [
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/06-autogen-agent-and-multi-agent-applications-8cb555fe.md",
+          "wiki/concepts/prompt-injection.md",
+          "wiki/concepts/sensitive-data-exposure.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "source-008-paraphrase",
+        "query": "source card for OWASP prompt injection data exposure and tool abuse",
+        "category": "source-paraphrase",
+        "relevant": [
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/prompt-injection.md",
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/concepts/tool-abuse.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.25
+      },
+      {
+        "id": "analysis-001-title",
+        "query": "Agent Development Knowledge Map",
+        "category": "analysis-title",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/agent-interoperability.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-001-paraphrase",
+        "query": "map connecting guardrails tracing MCP durable execution multi agent and security sources",
+        "category": "analysis-paraphrase",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/sources/04-langgraph-durable-execution-2b964c83.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-002-title",
+        "query": "initial agent development source map",
+        "category": "analysis-title",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "analysis-002-paraphrase",
+        "query": "cross cutting threads for safety reliability coordination and protocol design",
+        "category": "analysis-paraphrase",
+        "relevant": [
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/protocol-boundary.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/analyses/agent-development-knowledge-map.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.33333333333333337,
+        "reciprocal_rank": 0.2
+      },
+      {
+        "id": "cross-001",
+        "query": "how should llmw validate generated wiki pages before writing files",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/tool-safety.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/output-guardrails.md",
+          "wiki/concepts/agent-guardrails.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/concepts/input-guardrails.md",
+          "wiki/concepts/planner-executor-pattern.md"
+        ],
+        "hits": 2,
+        "precision": 0.4,
+        "recall": 0.6666666666666666,
+        "f1": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-002",
+        "query": "how to debug and replay failed agent runs",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/concepts/agent-observability.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/replayable-agent-runs.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/agent-observability.md",
+          "wiki/concepts/tool-call-logs.md"
+        ],
+        "hits": 3,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.7499999999999999,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-003",
+        "query": "what helps long running agents recover after interruption",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/concepts/agent-state-graph.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/durable-agent-execution.md",
+          "wiki/concepts/agent-checkpointing.md",
+          "wiki/sources/01-openai-agents-guardrails-87ce73bd.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md"
+        ],
+        "hits": 2,
+        "precision": 0.4,
+        "recall": 0.6666666666666666,
+        "f1": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-004",
+        "query": "which pattern sends work to several agents in parallel then combines answers",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/concepts/coordinator-agent.md",
+          "wiki/concepts/multi-agent-systems.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/fan-out-gather-pattern.md",
+          "wiki/sources/05-google-adk-multi-agent-patterns-78ef6d88.md",
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/analyses/agent-development-knowledge-map.md",
+          "wiki/concepts/Multi-Agent Orchestration.md"
+        ],
+        "hits": 1,
+        "precision": 0.2,
+        "recall": 0.3333333333333333,
+        "f1": 0.25,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-005",
+        "query": "difference between MCP tools and agent to agent protocol",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/concepts/model-context-protocol.md",
+          "wiki/concepts/agent2agent-protocol.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/mcp-tools.md",
+          "wiki/concepts/agent2agent-protocol.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/concepts/mcp-vs-a2a.md",
+          "wiki/concepts/mcp-resources.md"
+        ],
+        "hits": 2,
+        "precision": 0.4,
+        "recall": 0.6666666666666666,
+        "f1": 0.5,
+        "reciprocal_rank": 0.5
+      },
+      {
+        "id": "cross-006",
+        "query": "how to reduce prompt injection risk in tool using agents",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/prompt-injection.md",
+          "wiki/concepts/agent-security.md",
+          "wiki/concepts/tool-safety.md",
+          "wiki/concepts/least-privilege.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/prompt-injection.md",
+          "wiki/sources/03-mcp-tools-resources-prompts-420d2910.md",
+          "wiki/sources/08-owasp-llm-agent-security-9253bc51.md",
+          "wiki/concepts/mcp-prompts.md",
+          "wiki/concepts/agent-security.md"
+        ],
+        "hits": 2,
+        "precision": 0.4,
+        "recall": 0.5,
+        "f1": 0.4444444444444445,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-007",
+        "query": "what data should not be stored in traces or logs",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/tool-call-logs.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/sensitive-data-exposure.md",
+          "wiki/concepts/agent-tracing.md",
+          "wiki/concepts/tool-call-logs.md",
+          "wiki/sources/02-openai-agents-tracing-ea05beb6.md",
+          "wiki/concepts/output-guardrails.md"
+        ],
+        "hits": 3,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.7499999999999999,
+        "reciprocal_rank": 1.0
+      },
+      {
+        "id": "cross-008",
+        "query": "how should agents coordinate reviewer planner executor and human approval roles",
+        "category": "cross-cutting",
+        "relevant": [
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/concepts/reviewer-agent.md",
+          "wiki/concepts/human-in-the-loop.md"
+        ],
+        "retrieved": [
+          "wiki/concepts/planner-executor-pattern.md",
+          "wiki/concepts/reviewer-agent.md",
+          "wiki/concepts/human-in-the-loop.md",
+          "wiki/concepts/Multi-Agent Orchestration.md",
+          "wiki/concepts/coordinator-agent.md"
+        ],
+        "hits": 4,
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1": 0.888888888888889,
+        "reciprocal_rank": 1.0
+      }
+    ]
+  }
+}
+# exit 0
+
+$ ./.venv/bin/llmw context --root . --json
+{
+  "ok": true,
+  "context": {
+    "root": "/home/u2023312337/LLM_wiki",
+    "project_name": "LLM Wiki",
+    "wiki": {
+      "pages": 48,
+      "page_types": {
+        "analysis": 1,
+        "concept": 39,
+        "source": 8
+      },
+      "index_current": true
+    },
+    "sources": {
+      "total": 8,
+      "statuses": {
+        "ingested": 8
+      },
+      "pending_ingest": []
+    },
+    "health": {
+      "errors": 0,
+      "warnings": 0,
+      "infos": 0,
+      "issues": []
+    },
+    "provider": {
+      "config_exists": true,
+      "valid": true,
+      "default_provider": "qwen_plus",
+      "providers": [
+        "qwen_plus"
+      ],
+      "api_key_env": "DASHSCOPE_API_KEY",
+      "api_key_present": true
+    },
+    "recommended_commands": [
+      "llmw mcp --root .",
+      "llmw_context",
+      "llmw_next",
+      "llmw_health_check",
+      "llmw_search query='<query>'",
+      "llmw search-daemon start --deep",
+      "llmw_query question='<question>'"
+    ]
+  }
+}
+# exit 0
