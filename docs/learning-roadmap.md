@@ -331,7 +331,7 @@ exclude = [".llmw", "raw/.*", "wiki/.*"]
 - `llmw benchmark search` 检索质量基准
 - sdist 审计（防止发布包泄漏私有数据）
 
-`.github/workflows/release.yml`：publish to PyPI 工作流。
+`.github/workflows/release.yml`：构建并上传本地发布 artifacts；PyPI 发布是后续预留步骤。
 
 #### 7. 文档结构设计
 

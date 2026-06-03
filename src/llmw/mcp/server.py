@@ -197,7 +197,7 @@ def prompt_definitions() -> list[dict[str, Any]]:
 
 def call_mcp_tool(name: str, arguments: dict[str, Any] | None, *, root: Path | str = ".") -> dict[str, Any]:
     args = arguments or {}
-    paths = WikiPaths.from_root(args.get("root") or root)
+    paths = WikiPaths.from_root(root)
     if name == "llmw_context":
         return {"context": build_context(paths)}
     if name == "llmw_next":
@@ -259,9 +259,7 @@ def call_mcp_tool(name: str, arguments: dict[str, Any] | None, *, root: Path | s
             payload["preview"] = apply_plan(paths, plan, dry_run=True)
         return payload
     if name == "llmw_apply":
-        plan_file = Path(_required_str(args, "plan_file"))
-        if not plan_file.is_absolute():
-            plan_file = paths.root / plan_file
+        plan_file = _resolve_mcp_plan_file(paths, _required_str(args, "plan_file"))
         plan = load_plan(plan_file)
         dry_run = bool(args.get("dry_run", True))
         provider = None
@@ -443,23 +441,32 @@ def _resolve_allowed_resource_path(paths: WikiPaths, rel_path: str, *, allowed_r
 
 
 def _tool(name: str, description: str, properties: dict[str, Any], *, required: list[str] | None = None) -> dict[str, Any]:
-    schema_properties = {
-        "root": {
-            "type": "string",
-            "description": "Project root. Defaults to the MCP server root.",
-        },
-        **properties,
-    }
     return {
         "name": name,
         "description": description,
         "inputSchema": {
             "type": "object",
-            "properties": schema_properties,
+            "properties": properties,
             "required": required or [],
             "additionalProperties": False,
         },
     }
+
+
+def _resolve_mcp_plan_file(paths: WikiPaths, plan_file: str) -> Path:
+    candidate = Path(plan_file)
+    if candidate.is_absolute():
+        target = candidate.resolve()
+    else:
+        target = (paths.root / candidate).resolve()
+    plans_root = (paths.state / "plans").resolve()
+    try:
+        target.relative_to(plans_root)
+    except ValueError as exc:
+        raise ValueError("MCP apply may only read saved plans under .llmw/plans/") from exc
+    if target.is_dir():
+        raise ValueError(f"Plan file is a directory: {plan_file}")
+    return target
 
 
 def _tool_result(payload: dict[str, Any], *, is_error: bool = False) -> dict[str, Any]:

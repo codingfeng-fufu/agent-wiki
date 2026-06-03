@@ -10,6 +10,8 @@ tags: [security, privacy]
 
 Sensitive data exposure is a security risk for LLM and agent systems. The OWASP source card specifically calls out sensitive information disclosure in prompts, traces, and logs.
 
+This page covers searches about secrets, private information, credentials, or other sensitive data leaking through prompts, traces, logs, source excerpts, or generated wiki outputs.
+
 ## Wiki Implications
 
 - Do not store API keys or secrets in wiki pages.

@@ -61,17 +61,17 @@ Equivalent config:
 
 ```toml
 [mcp_servers.llm_wiki]
-command = "/path/to/LLM_wiki/.venv/bin/llmw"
-args = ["mcp", "--root", "/path/to/LLM_wiki"]
+command = "/path/to/agent-wiki/.venv/bin/llmw"
+args = ["mcp", "--root", "/path/to/agent-wiki"]
 default_tools_approval_mode = "approve"
 ```
 
 For one-off non-interactive execution:
 
 ```bash
-codex -a never -s read-only exec --ephemeral -C /path/to/LLM_wiki \
-  -c 'mcp_servers.llm_wiki.command="/path/to/LLM_wiki/.venv/bin/llmw"' \
-  -c 'mcp_servers.llm_wiki.args=["mcp","--root","/path/to/LLM_wiki"]' \
+codex -a never -s read-only exec --ephemeral -C /path/to/agent-wiki \
+  -c 'mcp_servers.llm_wiki.command="/path/to/agent-wiki/.venv/bin/llmw"' \
+  -c 'mcp_servers.llm_wiki.args=["mcp","--root","/path/to/agent-wiki"]' \
   -c 'mcp_servers.llm_wiki.default_tools_approval_mode="approve"' \
   'Use the llm_wiki MCP server. Call llmw_context and llmw_search for guardrails.'
 ```

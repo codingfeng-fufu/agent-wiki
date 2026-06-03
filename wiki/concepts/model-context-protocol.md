@@ -8,7 +8,7 @@ tags: [mcp, protocol]
 
 # Model Context Protocol
 
-The Model Context Protocol (MCP) defines a standard interface for agents to interact with external capabilities via three core abstractions:
+The Model Context Protocol (MCP) is the standard interface for tools, resources, and prompts in this wiki: it defines how agents interact with external capabilities through three core abstractions.
 
 - [[MCP Tools]]: for actions
 - [[MCP Resources]]: for contextual data

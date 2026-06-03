@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 import json
 import shutil
 import subprocess
@@ -8,6 +7,8 @@ import tarfile
 from pathlib import Path
 
 import pytest
+
+from llmw.release import _secret_value_violations
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -66,9 +67,18 @@ def test_sdist_does_not_ship_env_files_or_real_api_keys(tmp_path) -> None:
 
     assert not [path for path in members if path.endswith(".env") or "/.env" in path]
     for path, content in contents.items():
-        for match in re.finditer(r"DASHSCOPE_API_KEY\s*=\s*['\"]?([^'\"\s]+)", content):
-            value = match.group(1).removesuffix("\\n")
-            assert value in {"your-dashscope-api-key", "from-file"}, f"unexpected key-like value in {path}"
+        assert not _secret_value_violations(path, content)
+
+
+def test_secret_value_scan_flags_common_provider_keys() -> None:
+    openai_env = "OPENAI" + "_API_KEY"
+    anthropic_env = "ANTHROPIC" + "_API_KEY"
+    openai_key = "sk-" + "live-secret"
+    anthropic_key = "real-" + "secret-value"
+    assert _secret_value_violations("config.txt", f'{openai_env}="{openai_key}"\n')
+    assert _secret_value_violations("config.txt", f'{anthropic_env}: "{anthropic_key}"\n')
+    assert not _secret_value_violations("config.txt", "DASHSCOPE_API_KEY=your-dashscope-api-key\n")
+    assert not _secret_value_violations("test.py", 'env["MOCK_LLM_API_KEY"] = "mock-placeholder-key"\n')
 
 
 def test_plugin_manifest_points_to_llmw_mcp() -> None:

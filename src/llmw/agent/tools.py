@@ -236,7 +236,7 @@ def preview_plan(paths: WikiPaths, plan: ToolPlan) -> dict[str, Any]:
 def _apply_step(paths: WikiPaths, step: ToolStep, *, provider: ProviderConfig | None) -> dict[str, Any]:
     if step.action == "source_add":
         config = load_config(paths)
-        record = add_source(paths, paths.root / str(step.args["path"]), config.source_extensions)
+        record = add_source(paths, _resolve_safe_plan_source_path(paths, str(step.args["path"])), config.source_extensions)
         return {"source_id": record.source_id, "path": record.path}
     if step.action == "ingest_record":
         source_id = str(step.args["source_id"])
@@ -359,6 +359,19 @@ def _resolve_safe_patch_path(paths: WikiPaths, rel_path: str) -> Path:
         target.relative_to(root)
     except ValueError as exc:
         raise ValueError(f"Unsafe wiki_patch path: {rel_path}") from exc
+    return target
+
+
+def _resolve_safe_plan_source_path(paths: WikiPaths, rel_path: str) -> Path:
+    candidate = Path(rel_path)
+    if candidate.is_absolute() or ".." in candidate.parts:
+        raise ValueError(f"Unsafe source_add path: {rel_path}")
+    target = (paths.root / candidate).resolve()
+    raw_inbox = paths.raw_inbox.resolve()
+    try:
+        target.relative_to(raw_inbox)
+    except ValueError as exc:
+        raise ValueError("source_add plans may only register files under raw/inbox/") from exc
     return target
 
 

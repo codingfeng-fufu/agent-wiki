@@ -2403,7 +2403,7 @@ $ ./.venv/bin/llmw context --root . --json
 {
   "ok": true,
   "context": {
-    "root": "/home/u2023312337/LLM_wiki",
+    "root": "/path/to/agent-wiki",
     "project_name": "LLM Wiki",
     "wiki": {
       "pages": 48,
@@ -2435,7 +2435,7 @@ $ ./.venv/bin/llmw context --root . --json
         "qwen_plus"
       ],
       "api_key_env": "DASHSCOPE_API_KEY",
-      "api_key_present": true
+      "api_key_present": false
     },
     "recommended_commands": [
       "llmw mcp --root .",

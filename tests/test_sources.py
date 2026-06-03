@@ -8,7 +8,7 @@ def test_add_source_copies_to_processed_and_deduplicates(tmp_path) -> None:
     paths = WikiPaths.from_root(tmp_path)
     ensure_project_dirs(paths)
     write_config(paths)
-    source = tmp_path / "Raw Article.md"
+    source = paths.raw_inbox / "Raw Article.md"
     source.write_text("# Raw Article\n\nUseful content.", encoding="utf-8")
 
     first = add_source(paths, source, [".md"])
@@ -24,7 +24,7 @@ def test_add_source_copies_to_processed_and_deduplicates(tmp_path) -> None:
 def test_build_ingest_packet_contains_agent_work(tmp_path) -> None:
     paths = WikiPaths.from_root(tmp_path)
     ensure_project_dirs(paths)
-    source = tmp_path / "note.txt"
+    source = paths.raw_inbox / "note.txt"
     source.write_text("A small note about retrieval and synthesis.", encoding="utf-8")
     record = add_source(paths, source, [".txt"])
 
@@ -33,3 +33,18 @@ def test_build_ingest_packet_contains_agent_work(tmp_path) -> None:
     assert f"source_id: `{record.source_id}`" in packet
     assert "Required Agent Work" in packet
     assert "retrieval and synthesis" in packet
+
+
+def test_add_source_rejects_files_outside_raw_inbox(tmp_path) -> None:
+    paths = WikiPaths.from_root(tmp_path)
+    ensure_project_dirs(paths)
+    write_config(paths)
+    source = tmp_path / "private-note.md"
+    source.write_text("# Private\n", encoding="utf-8")
+
+    try:
+        add_source(paths, source, [".md"])
+    except ValueError as exc:
+        assert "raw/inbox" in str(exc)
+    else:
+        raise AssertionError("add_source accepted a file outside raw/inbox")

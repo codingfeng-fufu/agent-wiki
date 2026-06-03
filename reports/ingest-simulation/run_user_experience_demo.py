@@ -92,7 +92,7 @@ def main() -> None:
 def run_demo(base_url: str) -> str:
     env = os.environ.copy()
     env["PYTHONPATH"] = str(ROOT / "src")
-    env["MOCK_LLM_API_KEY"] = "mock-key"
+    env["MOCK_LLM_API_KEY"] = "mock-placeholder-key"
     env["LLMW_DISABLE_QMD"] = "1"
 
     lines: list[str] = []

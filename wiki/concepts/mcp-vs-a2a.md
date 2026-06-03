@@ -10,6 +10,8 @@ tags: [mcp, a2a, comparison]
 
 MCP (Model Context Protocol) and A2A (Agent2Agent Protocol) address complementary but non-overlapping interoperability concerns:
 
+This page is the comparison entry for questions like "compare Model Context Protocol with Agent2Agent interoperability" or "difference between MCP tools and agent-to-agent protocol."
+
 | Dimension | MCP | A2A |
 |-----------|-----|-----|
 | **Scope** | Model ↔ external context (tools, resources, prompts) | Agent ↔ peer agent |

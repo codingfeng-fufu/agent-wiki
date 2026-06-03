@@ -15,7 +15,7 @@ def test_registry_page_refs_and_page_sources_stay_consistent(tmp_path) -> None:
     write_config(paths)
     paths.log_path.write_text("# Log\n\n", encoding="utf-8")
 
-    source = tmp_path / "evidence.md"
+    source = paths.raw_inbox / "evidence.md"
     source.write_text("# Evidence\n\nA note about connected wiki pages.", encoding="utf-8")
     record = add_source(paths, source, [".md"])
 

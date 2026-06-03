@@ -36,6 +36,11 @@ def add_source(paths: WikiPaths, source_path: Path, allowed_extensions: list[str
     source_path = source_path.resolve()
     if not source_path.exists() or not source_path.is_file():
         raise FileNotFoundError(source_path)
+    raw_inbox = paths.raw_inbox.resolve()
+    try:
+        source_path.relative_to(raw_inbox)
+    except ValueError as exc:
+        raise ValueError("Source files must be under raw/inbox/") from exc
 
     suffix = source_path.suffix.lower()
     if suffix not in {ext.lower() for ext in allowed_extensions}:

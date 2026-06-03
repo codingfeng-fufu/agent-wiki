@@ -4,12 +4,12 @@ Use this page when preparing the first public GitHub release or social post.
 
 ## One-Line Positioning
 
-Give your coding agent source-backed memory it can maintain.
+Local, source-backed Markdown memory for coding agents.
 
 ## Origin Statement
 
 ```text
-LLM Wiki is my implementation of Andrej Karpathy's LLM Wiki idea:
+LLM Wiki is my implementation of Andrej Karpathy's LLM Wiki pattern:
 https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
 
 It turns the pattern into a local developer tool: raw sources stay immutable,
@@ -21,16 +21,16 @@ agent runtime, protocol, model provider, or editor.
 ## GitHub Description
 
 ```text
-Agent-facing local Markdown wiki with MCP tools for source-backed long-term memory.
+Local, source-backed Markdown memory for coding agents.
 ```
 
 ## Useful Because
 
 ```text
-This is useful when an agent keeps re-reading the same docs, design notes, or
-research sources across sessions. LLM Wiki gives it maintained Markdown memory:
-source pages, concept pages, links, provenance, search, safe plans, dry-run
-apply, and health checks.
+This is useful when a coding agent keeps re-reading the same docs, design notes,
+or research sources across sessions. LLM Wiki gives it maintained Markdown
+memory: source pages, concept pages, links, provenance, search, safe plans,
+dry-run apply, and health checks.
 ```
 
 ## Suggested Topics
@@ -42,13 +42,14 @@ agents, mcp, markdown, wiki, knowledge-base, retrieval, local-first, codex, llm
 ## Short Announcement
 
 ```text
-I built LLM Wiki: a local MCP memory layer for coding agents.
+I built LLM Wiki: local, source-backed Markdown memory for coding agents.
 
 Instead of searching raw docs from scratch on every question, an agent maintains
 a source-backed Markdown wiki: summaries, concept pages, links, provenance,
 safe plans, dry-run apply, and health checks.
 
-It is my implementation of Karpathy's LLM Wiki idea, adapted into a local tool.
+It is my implementation of Karpathy's LLM Wiki pattern, adapted into a local
+tool with CLI and MCP support.
 
 Demo: scripts/demo.sh
 ```
@@ -90,5 +91,4 @@ After: your agent maintains a source-backed wiki and reuses it through MCP.
 
 ## Visual Asset
 
-Use `assets/social-preview.svg` as the source artwork for the GitHub social
-preview. Export it to PNG if the hosting surface requires a raster image.
+Use `assets/social-preview.png` as the GitHub social preview image.

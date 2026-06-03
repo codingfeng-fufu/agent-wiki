@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import io
 import json
+import pytest
 from llmw.core.config import ensure_project_dirs, write_config
 from llmw.core.paths import WikiPaths
 from llmw.mcp import server as mcp_server
 from llmw.mcp.server import call_mcp_tool, serve_mcp_stdio
+from llmw.agent.tools import ToolPlan, ToolStep, save_plan
 
 
 def test_mcp_context_tool_returns_project_state(tmp_path) -> None:
@@ -15,6 +17,22 @@ def test_mcp_context_tool_returns_project_state(tmp_path) -> None:
     payload = call_mcp_tool("llmw_context", {}, root=tmp_path)
 
     assert payload["context"]["root"] == tmp_path.as_posix()
+    assert payload["context"]["wiki"]["pages"] == 1
+
+
+def test_mcp_ignores_root_argument_and_uses_server_root(tmp_path) -> None:
+    paths = _project(tmp_path / "server-root")
+    other_paths = _project(tmp_path / "other-root")
+    (paths.wiki_concepts / "alpha.md").write_text("# Alpha\n\nServer root concept.", encoding="utf-8")
+    (other_paths.wiki_concepts / "secret.md").write_text("# Secret\n\nOther root concept.", encoding="utf-8")
+
+    payload = call_mcp_tool(
+        "llmw_context",
+        {"root": other_paths.root.as_posix()},
+        root=paths.root,
+    )
+
+    assert payload["context"]["root"] == paths.root.as_posix()
     assert payload["context"]["wiki"]["pages"] == 1
 
 
@@ -176,6 +194,45 @@ def test_mcp_deep_search_prefers_running_daemon(tmp_path, monkeypatch) -> None:
     assert payload["served_by"] == "search-daemon"
     assert payload["strategy"]["mode"] == "deep"
     assert payload["results"][0]["path"] == "wiki/concepts/guardrails.md"
+
+
+def test_mcp_apply_rejects_plan_file_outside_saved_plans(tmp_path) -> None:
+    paths = _project(tmp_path)
+    plan = ToolPlan(
+        plan_id="plan-outside",
+        goal="rebuild index",
+        created_at="2026-01-01T00:00:00Z",
+        steps=[ToolStep(id="step-1", action="index_rebuild")],
+    )
+    plan_path = tmp_path / "outside-plan.json"
+    plan_path.write_text(plan.model_dump_json(), encoding="utf-8")
+
+    with pytest.raises(ValueError, match=r"\.llmw/plans"):
+        call_mcp_tool(
+            "llmw_apply",
+            {"plan_file": plan_path.as_posix(), "dry_run": True},
+            root=paths.root,
+        )
+
+
+def test_mcp_apply_accepts_saved_plan_under_project_state(tmp_path) -> None:
+    paths = _project(tmp_path)
+    plan = ToolPlan(
+        plan_id="plan-inside",
+        goal="rebuild index",
+        created_at="2026-01-01T00:00:00Z",
+        steps=[ToolStep(id="step-1", action="index_rebuild", writes=["wiki/index.md"])],
+    )
+    saved_plan = save_plan(paths, plan)
+
+    payload = call_mcp_tool(
+        "llmw_apply",
+        {"plan_file": saved_plan, "dry_run": True},
+        root=paths.root,
+    )
+
+    assert payload["dry_run"] is True
+    assert payload["results"][0]["action"] == "index_rebuild"
 
 
 def _project(tmp_path) -> WikiPaths:

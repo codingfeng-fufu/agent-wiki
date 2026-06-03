@@ -46,7 +46,7 @@ Generated from `48` wiki pages.
 - [[MCP Tools]] `sources:1` - MCP Tools expose discrete, invocable actions that a model or host can execute. They are distinct from resources and prompts in that they produce side effects or compute results.
 - [[MCP vs A2A]] `sources:1` - MCP (Model Context Protocol) and A2A (Agent2Agent Protocol) address complementary but non-overlapping interoperability concerns:
 - [[Message Driven Agents]] `sources:1` - Message-driven agents interact primarily through asynchronous or synchronous message passing rather than direct function calls or shared memory.
-- [[Model Context Protocol]] `sources:1` - The Model Context Protocol (MCP) defines a standard interface for agents to interact with external capabilities via three core abstractions:
+- [[Model Context Protocol]] `sources:1` - The Model Context Protocol (MCP) is the standard interface for tools, resources, and prompts in this wiki: it defines how agents interact with external capabilities through three c
 - [[Multi-Agent Orchestration]] `sources:1` - Multi-agent orchestration refers to the mechanisms and patterns used to coordinate behavior, data flow, and control among multiple autonomous agents.
 - [[Multi-Agent Systems]] `sources:1` - Multi-agent systems (MAS) are architectures in which multiple autonomous agents interact to solve tasks that are beyond the capability of any single agent.
 - [[Output Guardrails]] `sources:1` - Output guardrails validate an agent result before it is returned, stored, or passed to a tool. The guardrails source card highlights malformed outputs, policy violations, and unsaf

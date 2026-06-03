@@ -153,6 +153,34 @@ def test_wiki_patch_rejects_raw_paths(tmp_path) -> None:
     assert "wiki/ or system/" in payload["error"]["message"]
 
 
+def test_plan_source_add_rejects_files_outside_raw_inbox(tmp_path) -> None:
+    _project(tmp_path)
+    private_source = tmp_path / "private-note.md"
+    private_source.write_text("# Private\n", encoding="utf-8")
+    plan = ToolPlan(
+        plan_id="plan-private-source",
+        goal="bad source",
+        created_at="2026-01-01T00:00:00Z",
+        steps=[
+            ToolStep(
+                id="step-1",
+                action="source_add",
+                args={"path": "private-note.md"},
+                writes=[".llmw/sources.json", "raw/processed/"],
+            )
+        ],
+    )
+    plan_path = tmp_path / "private-source-plan.json"
+    plan_path.write_text(plan.model_dump_json(), encoding="utf-8")
+
+    result = runner.invoke(app, ["apply", str(plan_path), "--root", str(tmp_path), "--json"])
+
+    assert result.exit_code == 1
+    payload = json.loads(result.output)
+    assert payload["ok"] is False
+    assert "raw/inbox" in payload["error"]["message"]
+
+
 def test_query_json_error_contract(tmp_path) -> None:
     paths = _project(tmp_path)
     (paths.system / "providers").mkdir(parents=True, exist_ok=True)

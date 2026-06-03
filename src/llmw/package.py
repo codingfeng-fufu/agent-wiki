@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import re
 import shutil
 import subprocess
 import tempfile
@@ -12,7 +11,7 @@ from typing import Any
 
 from llmw.core.fs import utc_now_iso
 from llmw.core.paths import WikiPaths
-from llmw.release import audit_sdist_artifact, run_release_check
+from llmw.release import _secret_value_violations, audit_sdist_artifact, run_release_check
 
 
 def build_package(
@@ -129,10 +128,7 @@ def audit_wheel_artifact(wheel: Path) -> dict[str, Any]:
                 content = archive.read(name).decode("utf-8")
             except UnicodeDecodeError:
                 continue
-            for match in re.finditer(r"DASHSCOPE_API_KEY\s*=\s*['\"]?([^'\"\s]+)", content):
-                value = match.group(1).removesuffix("\\n")
-                if value not in {"your-dashscope-api-key", "from-file"}:
-                    violations.append(f"unexpected API-key-like value in {name}")
+            violations.extend(_secret_value_violations(name, content))
     return {"artifact": wheel.as_posix(), "ok": not violations, "violations": violations}
 
 

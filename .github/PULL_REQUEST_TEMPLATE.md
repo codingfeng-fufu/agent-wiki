@@ -11,7 +11,7 @@ Describe the change and why it matters.
 - [ ] `pytest -q`
 - [ ] `llmw health check --json`
 - [ ] `llmw benchmark search --provider python --top-k 5 --json`
-- [ ] `llmw release check --json`
+- [ ] `llmw release check --no-codex --no-strict --json`
 
 ## Notes
 

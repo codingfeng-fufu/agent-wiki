@@ -1,12 +1,17 @@
 # Examples
 
-This repository includes a small working example wiki about agent development.
-It is meant to show the kind of maintained knowledge layer LLM Wiki can produce,
-not to be a complete reference corpus.
+This repository includes a working example wiki about agent development. It is
+the fuller demo layer: a real maintained Markdown corpus that shows how the
+Karpathy LLM Wiki pattern looks after sources have been compiled into wiki
+pages.
 
-The repository also includes small synthetic raw sources under
-[`raw/examples/`](../raw/examples/README.md). They show the expected evidence
-shape without requiring private documents.
+For the shortest command-line proof, run:
+
+```bash
+scripts/demo.sh
+```
+
+For a guided walkthrough, see [Demo](../docs/demo.md).
 
 ## Example Knowledge Map
 
@@ -29,22 +34,23 @@ Source cards:
 - [MCP tools, resources, and prompts](../wiki/sources/03-mcp-tools-resources-prompts-420d2910.md)
 - [OWASP LLM application security](../wiki/sources/08-owasp-llm-agent-security-9253bc51.md)
 
-## Run The Demo
-
-```bash
-scripts/demo.sh
-```
-
-The demo shows context, search, maintenance planning, safe apply dry-run, and
-health verification using the example wiki.
+Synthetic raw examples are available under
+[`raw/examples/`](../raw/examples/README.md). They show the expected evidence
+shape without requiring private documents.
 
 ## Try These Queries
 
 ```bash
-llmw search "prompt injection tool safety" --json
-llmw search "MCP tools resources prompts" --json
-llmw search "durable execution checkpointing" --json
-llmw query "how should agents reduce prompt injection risk?"
+uv run llmw search "prompt injection tool safety" --root . --json
+uv run llmw search "MCP tools resources prompts" --root . --json
+uv run llmw search "durable execution checkpointing" --root . --json
+uv run llmw benchmark search --root . --provider python --top-k 5 --json
+```
+
+If a live provider is configured:
+
+```bash
+uv run llmw query "how should agents reduce prompt injection risk?" --root .
 ```
 
 These queries show why a maintained wiki is useful: the agent can search concept

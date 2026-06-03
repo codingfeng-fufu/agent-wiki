@@ -25,6 +25,22 @@ ALLOWED_WIKI_TEMPLATES = {
     "wiki/index.md",
     "wiki/log.md",
 }
+ALLOWED_SECRET_PLACEHOLDERS = {
+    "from-file",
+    "from-test",
+    "mock-placeholder-key",
+    "test-key",
+    "your-dashscope-api-key",
+}
+SECRET_VALUE_RE = re.compile(
+    r"""(?ix)
+    (?:
+      \b[A-Z][A-Z0-9_]*(?:API[_-]?KEY|TOKEN|SECRET|PASSWORD|ACCESS[_-]?KEY|PRIVATE[_-]?KEY)\b
+      ["'\]]*\s*(?:(?<![=!<>])=(?!=)|:)\s*
+    )
+    ["']?([^'"\s,}]+)
+    """
+)
 
 
 def run_release_check(
@@ -248,11 +264,26 @@ def _sdist_violations(sdist: Path) -> list[str]:
     violations.extend(path for path in sorted(members) if path.startswith("wiki/") and path not in ALLOWED_WIKI_TEMPLATES)
     violations.extend(path for path in sorted(members) if path.endswith(".env") or "/.env" in path)
     for path, content in _sdist_text_contents(sdist).items():
-        for match in re.finditer(r"DASHSCOPE_API_KEY\s*=\s*['\"]?([^'\"\s]+)", content):
-            value = match.group(1).removesuffix("\\n")
-            if value not in {"your-dashscope-api-key", "from-file"}:
-                violations.append(f"unexpected API-key-like value in {path}")
+        violations.extend(_secret_value_violations(path, content))
     return violations
+
+
+def _secret_value_violations(path: str, content: str) -> list[str]:
+    violations: list[str] = []
+    for match in SECRET_VALUE_RE.finditer(content):
+        value = match.group(1).removesuffix("\\n")
+        if _looks_like_safe_placeholder(value):
+            continue
+        violations.append(f"unexpected secret-like value in {path}")
+    return violations
+
+
+def _looks_like_safe_placeholder(value: str) -> bool:
+    normalized = value.strip().strip("'\"")
+    lowered = normalized.lower()
+    if normalized in ALLOWED_SECRET_PLACEHOLDERS:
+        return True
+    return any(token in lowered for token in ["example", "fake", "mock", "placeholder", "your-"])
 
 
 def _sdist_members(sdist: Path) -> set[str]:

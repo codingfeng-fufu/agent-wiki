@@ -34,4 +34,4 @@ jobs:
         run: uv run llmw benchmark search --provider python --top-k 5 --json
 
       - name: Audit source distribution
-        run: uv run llmw release check --no-tests --no-benchmark --sdist --no-codex --json
+        run: uv run llmw release check --no-tests --no-benchmark --sdist --no-codex --no-strict --json

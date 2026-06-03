@@ -83,7 +83,7 @@ section "Doctor Smoke"
 "$LLMW" doctor --root . --no-codex --json >/dev/null
 
 section "Release Command Smoke"
-"$LLMW" release check --root . --no-tests --no-benchmark --no-sdist --no-codex --json >/dev/null
+"$LLMW" release check --root . --no-tests --no-benchmark --no-sdist --no-codex --no-strict --json >/dev/null
 
 if [[ "$RUN_SEARCH_BENCHMARK" == "1" ]]; then
   section "Search Benchmark"

@@ -6,7 +6,7 @@
 
 ## 测试环境
 
-- 原项目：`/home/u2023312337/LLM_wiki`
+- 原项目：`/path/to/agent-wiki`
 - 临时项目：`/tmp/llmw-zh-demo`
 - 产物目录：`reports/zh-demo/`
 - Provider：`qwen_plus`，测试时已配置可用凭据

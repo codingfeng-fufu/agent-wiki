@@ -8,7 +8,7 @@ The project is in release-candidate condition for local agent use. Core CLI, JSO
 
 ## Environment
 
-- Project root: `/home/u2023312337/LLM_wiki`
+- Project root: `/path/to/agent-wiki`
 - Tool version: `llmw 0.1.0`
 - Python: `3.11.5`
 - LLM provider: `qwen_plus`

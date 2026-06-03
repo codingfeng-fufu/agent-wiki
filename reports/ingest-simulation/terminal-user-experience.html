@@ -46,15 +46,15 @@
 <body>
   <section class="terminal">
     <div class="bar"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="title">LLM Wiki 用户终端模拟</span></div>
-    <pre>$ llmw init --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace
-Initialized LLM Wiki at /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace
+    <pre>$ llmw init --root /path/to/agent-wiki/reports/ingest-simulation/workspace
+Initialized LLM Wiki at /path/to/agent-wiki/reports/ingest-simulation/workspace
 # exit 0
 
 # 配置 mock provider: system/providers/mock.json
 
 # 准备中文 raw source: raw/inbox/zh-long-memory.md
 
-$ llmw source add raw/inbox/zh-long-memory.md --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+$ llmw source add raw/inbox/zh-long-memory.md --root /path/to/agent-wiki/reports/ingest-simulation/workspace --json
 {
   &quot;ok&quot;: true,
   &quot;source&quot;: {
@@ -77,7 +77,7 @@ $ llmw source add raw/inbox/zh-long-memory.md --root /home/u2023312337/LLM_wiki/
 
 # normalize source_id: zh-long-memory-bbeee92f -&gt; zh-long-memory-1234
 
-$ llmw index rebuild --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+$ llmw index rebuild --root /path/to/agent-wiki/reports/ingest-simulation/workspace --json
 {
   &quot;ok&quot;: true,
   &quot;path&quot;: &quot;wiki/index.md&quot;
@@ -86,7 +86,7 @@ $ llmw index rebuild --root /home/u2023312337/LLM_wiki/reports/ingest-simulation
 
 # 预置已有概念页: wiki/concepts/coding-agent.md
 
-$ llmw ingest run zh-long-memory-1234 --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --provider-config /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace/system/providers/mock.json --json
+$ llmw ingest run zh-long-memory-1234 --root /path/to/agent-wiki/reports/ingest-simulation/workspace --provider-config /path/to/agent-wiki/reports/ingest-simulation/workspace/system/providers/mock.json --json
 {
   &quot;ok&quot;: true,
   &quot;source_id&quot;: &quot;zh-long-memory-1234&quot;,
@@ -102,7 +102,7 @@ $ llmw ingest run zh-long-memory-1234 --root /home/u2023312337/LLM_wiki/reports/
 }
 # exit 0
 
-$ llmw health check --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+$ llmw health check --root /path/to/agent-wiki/reports/ingest-simulation/workspace --json
 {
   &quot;ok&quot;: true,
   &quot;issues&quot;: [
@@ -116,7 +116,7 @@ $ llmw health check --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/
 }
 # exit 0
 
-$ llmw search 这个项目为什么需要一个长期记忆层？ --root /home/u2023312337/LLM_wiki/reports/ingest-simulation/workspace --json
+$ llmw search 这个项目为什么需要一个长期记忆层？ --root /path/to/agent-wiki/reports/ingest-simulation/workspace --json
 {
   &quot;ok&quot;: true,
   &quot;warning&quot;: null,
